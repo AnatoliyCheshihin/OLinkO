@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:id="@+id/tvUserProfileTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/appDarkBlue"
+            android:layout_marginBottom="30dp"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold"
+            android:text="@string/personal_information"/>
+
+        <!-- First name -->
+
+        <TextView
+            android:id="@+id/tvUserFirstNameInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/appDarkGray"
+            android:layout_below="@id/tvUserProfileTitle"
+            android:layout_marginRight="@dimen/user_profile_line_margin_right"
+            android:layout_marginBottom="@dimen/user_profile_line_margin_top_bottom"
+            android:text="@string/first_name"/>
+
+        <TextView
+            android:id="@+id/tvUserFirstNameValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:layout_toRightOf="@id/tvUserFirstNameInfo"
+            android:layout_alignBaseline="@id/tvUserFirstNameInfo"
+            android:textColor="@color/appLightGray"
+            android:layout_marginRight="@dimen/user_profile_line_margin_right"
+            android:text="Sam"/>
+
+        <!-- Last name -->
+
+        <TextView
+            android:id="@+id/tvUserLastNameInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/appDarkGray"
+            android:layout_below="@id/tvUserFirstNameInfo"
+            android:layout_marginRight="@dimen/user_profile_line_margin_right"
+            android:layout_marginBottom="@dimen/user_profile_line_margin_top_bottom"
+            android:text="@string/last_name"/>
+
+        <TextView
+            android:id="@+id/tvUserLastNameValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:layout_toRightOf="@id/tvUserLastNameInfo"
+            android:layout_alignBaseline="@id/tvUserLastNameInfo"
+            android:textColor="@color/appLightGray"
+            android:layout_marginRight="@dimen/user_profile_line_margin_right"
+            android:text="Smith"/>
+
+        <!-- Email -->
+
+        <TextView
+            android:id="@+id/tvUserProfileEmailInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/appDarkGray"
+            android:layout_below="@id/tvUserLastNameInfo"
+            android:layout_marginRight="@dimen/user_profile_line_margin_right"
+            android:layout_marginBottom="@dimen/user_profile_line_margin_top_bottom"
+            android:text="@string/email"/>
+
+        <TextView
+            android:id="@+id/tvUserProfileEmailValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:layout_toRightOf="@id/tvUserProfileEmailInfo"
+            android:layout_alignBaseline="@id/tvUserProfileEmailInfo"
+            android:textColor="@color/appLightGray"
+            android:layout_marginRight="@dimen/user_profile_line_margin_right"
+            android:text="sam.smith@gmail.com"/>
+
+        <!-- Phone -->
+
+        <TextView
+            android:id="@+id/tvUserProfilePhoneInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/appDarkGray"
+            android:layout_below="@id/tvUserProfileEmailInfo"
+            android:layout_marginRight="@dimen/user_profile_line_margin_right"
+            android:layout_marginBottom="@dimen/user_profile_line_margin_top_bottom"
+            android:text="@string/phone"/>
+
+        <TextView
+            android:id="@+id/tvUserProfilePhoneValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:layout_toRightOf="@id/tvUserProfilePhoneInfo"
+            android:layout_alignBaseline="@id/tvUserProfilePhoneInfo"
+            android:textColor="@color/appLightGray"
+            android:layout_marginRight="@dimen/user_profile_line_margin_right"
+            android:text="050-00000000"/>
+
+        <!-- Country -->
+
+        <TextView
+            android:id="@+id/tvUserProfileCountryInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/appDarkGray"
+            android:layout_below="@id/tvUserProfilePhoneInfo"
+            android:layout_marginRight="@dimen/user_profile_line_margin_right"
+            android:layout_marginBottom="@dimen/user_profile_line_margin_top_bottom"
+            android:text="@string/country"/>
+
+        <TextView
+            android:id="@+id/tvUserProfileCountryValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:layout_toRightOf="@id/tvUserProfileCountryInfo"
+            android:layout_alignBaseline="@id/tvUserProfileCountryInfo"
+            android:textColor="@color/appLightGray"
+            android:layout_marginRight="@dimen/user_profile_line_margin_right"
+            android:text="Israel"/>
+
+        <!-- Language -->
+
+        <TextView
+            android:id="@+id/tvUserProfileLanguageInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/appDarkGray"
+            android:layout_below="@id/tvUserProfileCountryInfo"
+            android:layout_marginRight="@dimen/user_profile_line_margin_right"
+            android:layout_marginBottom="@dimen/user_profile_line_margin_top_bottom"
+            android:text="@string/language"/>
+
+        <TextView
+            android:id="@+id/tvUserProfileLanguageValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:layout_toRightOf="@id/tvUserProfileLanguageInfo"
+            android:layout_alignBaseline="@id/tvUserProfileLanguageInfo"
+            android:textColor="@color/appLightGray"
+            android:layout_marginRight="@dimen/user_profile_line_margin_right"
+            android:text="Hebrew"/>
+
+    </RelativeLayout>
+</FrameLayout>

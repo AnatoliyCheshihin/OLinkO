@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/chat_message_item_margin"
+    android:background="@drawable/bubble_green">
+
+    <TextView
+        android:id="@+id/tvChatOwnerPostMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/chat_message_item_text_padding"
+        android:text=""/>
+
+    <ImageView
+        android:contentDescription="@null"
+        android:id="@+id/ivChatOwnerPostImage"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+</FrameLayout>

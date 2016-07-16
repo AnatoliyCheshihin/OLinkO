@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Back arrow -->
+
+    <ImageView
+        android:contentDescription="@null"
+        android:id="@+id/ivSignUpBackArrow"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:padding="@dimen/icon_padding"
+        android:layout_gravity="right|top"
+        android:clickable="true"
+        android:tint="@color/appDarkBlue"
+        android:src="@drawable/ic_arrow_forward_black_18dp" />
+
+    <!-- Title -->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+        <!-- Title -->
+
+        <TextView
+            android:id="@+id/tvSignUpTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/appDarkBlue"
+            android:layout_marginBottom="30dp"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold"
+            android:text="@string/registration"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/appLightGray"
+            android:textSize="@dimen/text_size"
+            android:text="@string/sign_up_header_text"/>
+
+        <!-- First name -->
+
+        <EditText
+            android:id="@+id/etSignUpFirstNameValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/appDarkGray"
+            android:inputType="textPersonName"
+            android:hint="@string/first_name"/>
+
+        <!-- Last name -->
+        <EditText
+            android:id="@+id/etSignUpLastNameValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etSignUpFirstNameValue"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/appDarkGray"
+            android:inputType="textPersonName"
+            android:hint="@string/last_name"/>
+
+        <!-- Email -->
+        <EditText
+            android:id="@+id/etSignUpEmailValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etSignUpLastNameValue"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/appDarkGray"
+            android:inputType="textEmailAddress"
+            android:hint="@string/email"/>
+
+        <!-- Phone -->
+        <EditText
+            android:id="@+id/etSignUpPhoneValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etSignUpEmailValue"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/appDarkGray"
+            android:inputType="phone"
+            android:hint="@string/phone"/>
+
+        <!-- Country -->
+        <EditText
+            android:id="@+id/etSignUpCountryValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etSignUpPhoneValue"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/appDarkGray"
+            android:inputType="textAutoCorrect"
+            android:hint="@string/country"/>
+
+        <!-- Language -->
+        <EditText
+            android:id="@+id/etSignUpLanguageValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etSignUpCountryValue"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/appDarkGray"
+            android:inputType="textAutoComplete"
+            android:hint="@string/language"/>
+
+        <!-- Password -->
+        <EditText
+            android:id="@+id/etSignUpPasswordValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etSignUpLanguageValue"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/appDarkGray"
+            android:inputType="textPassword"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:hint="@string/password"/>
+
+        <TextView
+            android:id="@+id/tvSignUpSignUpButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:textSize="@dimen/title_text_size"
+            android:textColor="@color/appDarkBlue"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:text="@string/sign_up"/>
+
+    </LinearLayout>
+
+</FrameLayout>

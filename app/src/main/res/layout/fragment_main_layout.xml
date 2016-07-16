@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <AutoCompleteTextView
+        android:id="@+id/actvMainAutoCompleteInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/editor_line_margin_top_bottom"
+        android:layout_marginBottom="@dimen/editor_line_margin_top_bottom"
+        android:singleLine="true"
+        android:textSize="@dimen/text_size"
+        android:maxLines="1"
+        android:layout_centerHorizontal="true"
+        android:ellipsize="end"
+        android:drawableLeft="@android:drawable/ic_menu_search"
+        android:hint="@string/keyword_hint"/>
+
+    <TextView
+        android:id="@+id/tvGo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/go"
+        android:layout_below="@id/actvMainAutoCompleteInput"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/title_text_size"
+        android:textColor="@color/text_blue_selector"/>
+
+</RelativeLayout>

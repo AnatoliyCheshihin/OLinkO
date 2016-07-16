@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_alignParentTop="true"
+        android:id="@+id/etEditorInputKey"
+        android:layout_marginTop="@dimen/editor_line_margin_top_bottom"
+        android:layout_marginBottom="@dimen/editor_line_margin_top_bottom"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:drawableLeft="@android:drawable/ic_menu_search"
+        android:hint="@string/keyword_hint"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:id="@+id/etEditorInputValue"
+        android:layout_below="@id/etEditorInputKey"
+        android:layout_marginBottom="@dimen/editor_line_margin_top_bottom"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:hint="@string/link_hint"
+        android:drawableLeft="@android:drawable/ic_menu_add"/>
+
+    <TextView
+        android:id="@+id/tvEditorSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="@dimen/title_text_size"
+        android:textColor="@color/text_blue_selector"
+        android:layout_below="@id/etEditorInputValue"
+        android:layout_centerHorizontal="true"
+        android:text="@string/save"/>
+
+</RelativeLayout>

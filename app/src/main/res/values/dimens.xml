@@ -1,0 +1,33 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="history_item_margin_side">5dp</dimen>
+    <dimen name="history_item_margin_top_and_bottom">5dp</dimen>
+    <dimen name="history_item_title_text_size">18sp</dimen>
+    <dimen name="history_item_content_text_size">15sp</dimen>
+    <dimen name="history_item_date_text_size">13sp</dimen>
+    <dimen name="history_item_layout_height">75dp</dimen>
+
+    <!-- editor -->
+    <dimen name="editor_line_margin_top_bottom">10dp</dimen>
+
+    <dimen name="title_text_size">18sp</dimen>
+    <dimen name="text_size">16sp</dimen>
+
+    <!-- User profile fragment -->
+    <dimen name="user_profile_line_margin_right">5dp</dimen>
+    <dimen name="user_profile_line_margin_top_bottom">10dp</dimen>
+
+    <!-- Sign Up fragment -->
+    <dimen name="inner_margin_between_lines">30dp</dimen>
+    <dimen name="icon_size">35dp</dimen>
+    <dimen name="icon_padding">5dp</dimen>
+
+    <!-- Chat fragment -->
+    <dimen name="chat_menu_margin">5dp</dimen>
+    <dimen name="chat_message_item_margin">5dp</dimen>
+    <dimen name="chat_message_item_text_padding">5dp</dimen>
+</resources>

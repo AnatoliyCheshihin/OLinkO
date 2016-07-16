@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.anatoliy.oliko">
+    
+    <!-- Permissions -->
+    <!-- Required for browsing -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".app.PointerPlusApplication"
+        android:allowBackup="false"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+
+        <activity
+            android:name=".activities.LauncherActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.TutorialActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.example.anatoliy.oliko.activities.TutorialActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.RegistrationActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.example.anatoliy.oliko.activities.RegistrationActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.MainActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.example.anatoliy.olinko.activities.MainActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".activities.ChatActivity"
+            android:screenOrientation="portrait"/>
+
+    </application>
+
+</manifest>

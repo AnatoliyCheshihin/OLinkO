@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Pointer+</string>
+    <string name="action_settings">Settings</string>
+    <string name="save">SAVE</string>
+    <string name="go">GO</string>
+    <string name="keyword_is_missing">Keyword is missing!</string>
+    <string name="link_is_missing">Link is missing!</string>
+    <string name="keyword_hint">Keyword</string>
+    <string name="link_hint">Connect link</string>
+    <string name="link_not_found_error_message">There is no link for such keyword</string>
+
+    <string name="personal_information">Personal information</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="country">Country</string>
+    <string name="phone">Phone</string>
+    <string name="language">Language</string>
+    <string name="colon">:</string>
+
+    <string name="back">Back</string>
+    <string name="skip">SKIP</string>
+
+    <string name="password">Password</string>
+    <string name="not_registered">Not registered?</string>
+
+    <string name="registration">Registration</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="continue_text">Continue</string>
+
+    <string name="sign_up_header_text">In order to enjoy from full functionality of our application we suggest you to accomplish our registration process</string>
+
+    <string name="send">Send</string>
+
+    <!-- TODO: Delete prior to releasing -->
+    <string-array name="default_pointer_key_array">
+        <item>耐克</item>
+        <item>מבצעים הום סנטר</item>
+        <item>star war</item>
+        <item>coles</item>
+        <item>walmart</item>
+        <item>רדיו תל אביב</item>
+    </string-array>
+    <string-array name="default_pointer_value_array">
+        <item>http://www.nike.com/cn/zh_cn/</item>
+        <item>http://hcenter.nethost.co.il/Ynet/index.html</item>
+        <item>https://www.youtube.com/watch?v=wCc2v7izk8w</item>
+        <item>https://play.google.com/store/apps/details?id=com.coles.android.shopmate&amp;hl=en</item>
+        <item>https://play.google.com/store/apps/details?id=com.walmart.android&amp;hl=en</item>
+        <item>https://www.facebook.com/102fm</item>
+    </string-array>
+</resources>
