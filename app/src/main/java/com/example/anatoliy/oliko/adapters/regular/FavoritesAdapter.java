@@ -9,6 +9,9 @@ import com.example.anatoliy.oliko.models.Link;
 import java.util.List;
 
 /**
+ * Adapter, creates views for favorite items and binds related data to created layouts accordingly
+ * (Not in use currently)
+ *
  * Created by anatoliy on 20/02/16.
  */
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.FavoriteRecyclerView>{

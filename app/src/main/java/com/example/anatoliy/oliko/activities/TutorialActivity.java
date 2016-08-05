@@ -12,7 +12,7 @@ import com.example.anatoliy.oliko.utils.Prefs;
 import com.viewpagerindicator.TitlePageIndicator;
 
 /**
- * Represents set of tutorial pages
+ * Represents set of tutorial pages (Partially implemented since it is POC)
  *
  * Created by anatoliy on 27/02/16.
  */

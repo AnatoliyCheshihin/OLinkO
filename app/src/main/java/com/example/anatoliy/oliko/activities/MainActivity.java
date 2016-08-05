@@ -14,12 +14,13 @@ import android.view.MenuItem;
 import com.example.anatoliy.oliko.R;
 import com.example.anatoliy.oliko.adapters.swipable.FragmentAdapter;
 import com.example.anatoliy.oliko.helpers.RealmHelper;
+import com.example.anatoliy.oliko.listeners.MainFragmentClickListener;
 import com.example.anatoliy.oliko.models.Link;
 import com.example.anatoliy.oliko.utils.IntentHelper;
 
 import java.util.Date;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MainFragmentClickListener {
 
     private CoordinatorLayout mCoordinatorLayout;
     private FragmentAdapter mAdapter;
@@ -56,6 +57,15 @@ public class MainActivity extends BaseActivity {
         startActivity(intent);
 
         showSnackBarMessage("Proceeding...", Snackbar.LENGTH_SHORT);
+    }
+
+    /**
+     * Takes user to {@link ChatActivity}
+     */
+    public void proceedToChatActivity(){
+
+        Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+        startActivity(intent);
     }
 
     private void initViewPager() {
@@ -120,5 +130,15 @@ public class MainActivity extends BaseActivity {
 
     public CoordinatorLayout getCoordinatorLayout(){
         return mCoordinatorLayout;
+    }
+
+    @Override
+    public void onChatActivityStartRequest() {
+        proceedToChatActivity();
+    }
+
+    @Override
+    public void onProceedViaLinkRequest(@NonNull Link link) {
+        startActivityFromLink(link);
     }
 }

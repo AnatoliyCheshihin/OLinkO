@@ -13,6 +13,9 @@ import com.example.anatoliy.oliko.listeners.RegistrationCallbacks;
 import com.example.anatoliy.oliko.utils.Prefs;
 
 /**
+ * Provides default (fake since it is POC) registration functionality to user, in order to skip
+ * registration just press 'SKIP'
+ *
  * Created by anatoliy on 27/02/16.
  */
 public class RegistrationActivity extends BaseActivity implements RegistrationCallbacks{

@@ -8,6 +8,9 @@ import com.example.anatoliy.oliko.R;
 import com.example.anatoliy.oliko.fragments.ChatFragment;
 
 /**
+ * Activity that provides chat 'like' representation of dialog between user and manager or
+ * bot (currently bot behavior expected)
+ *
  * Created by anatoliy on 16/07/2016.
  */
 
@@ -28,7 +31,7 @@ public class ChatActivity extends BaseActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager != null){
             fragmentManager.beginTransaction().add(R.id.flChatActivityFragmentContainer,
-                    ChatFragment.newInstance(), ChatFragment.TAG).addToBackStack(null).commit();
+                    ChatFragment.newInstance(), ChatFragment.TAG).commit();
         }
     }
 

@@ -28,8 +28,15 @@ public class PointerPlusApplication extends Application {
         sInstance = PointerPlusApplication.this;
         initSingletons();
 
-        // TODO : Delete prior to releasing
+        // TODO : In production data pre-filling will be not required
         insertPresetPointers();
+    }
+
+    private void initSingletons() {
+        // Init shared prefs
+        Prefs.init(getInstance());
+        // Init realm db
+        RealmHelper.init(getInstance());
     }
 
     private void insertPresetPointers() {
@@ -72,19 +79,16 @@ public class PointerPlusApplication extends Application {
         }
     }
 
-    private void initSingletons() {
-        // Init shared prefs
-        Prefs.init(getInstance());
-        // Init realm db
-        RealmHelper.init(getInstance());
-    }
-
+    /**
+     * Returns accessible across whole app context of current application
+     *
+     * @return {@link PointerPlusApplication}
+     */
     public static PointerPlusApplication getInstance(){
 
-        if (sInstance != null){
-            return sInstance;
-        } else {
+        if (sInstance == null) {
             throw new IllegalStateException("Application instance was not initialized");
         }
+        return sInstance;
     }
 }

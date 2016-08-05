@@ -15,7 +15,7 @@ import java.util.List;
 /**
  *
  * Adapts model data of user/owner messages to layouts that will be popualted later within
- * {@link RecyclerView}
+ * {@link RecyclerView}, (partially implemented)
  *
  * Created by anatoliy on 16/07/2016.
  */

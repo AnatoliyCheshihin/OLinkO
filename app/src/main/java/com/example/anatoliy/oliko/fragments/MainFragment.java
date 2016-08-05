@@ -1,8 +1,7 @@
 package com.example.anatoliy.oliko.fragments;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -12,19 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.anatoliy.oliko.R;
-import com.example.anatoliy.oliko.activities.ChatActivity;
-import com.example.anatoliy.oliko.activities.MainActivity;
 import com.example.anatoliy.oliko.helpers.RealmHelper;
+import com.example.anatoliy.oliko.listeners.MainFragmentClickListener;
 import com.example.anatoliy.oliko.models.Link;
 
 import java.util.List;
-import java.util.Set;
 
 /**
+ *
  * Created by anatoliy on 17/02/16.
  */
 public class MainFragment extends BaseFragment implements View.OnClickListener{
@@ -35,6 +32,19 @@ public class MainFragment extends BaseFragment implements View.OnClickListener{
 
     private AutoCompleteTextView mAutoCompleteInput;
     private TextView mGo;
+
+    private MainFragmentClickListener mListener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (!(context instanceof MainFragmentClickListener)){
+            throw new IllegalStateException("Host activity must implement "
+                    + MainFragmentClickListener.class.getSimpleName());
+        }
+
+        mListener = (MainFragmentClickListener) context;
+    }
 
     @Nullable
     @Override
@@ -107,13 +117,23 @@ public class MainFragment extends BaseFragment implements View.OnClickListener{
         }
     }
 
+    // TODO: delete this after implementation of chat activity instead of normal flow that was used previously
+    private boolean testChatActivity(){
+
+        boolean skipLinkRequest = true;
+        mListener.onChatActivityStartRequest();
+        return skipLinkRequest;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tvGo:
 
-                startActivity(new Intent(getActivity(), ChatActivity.class));
-                if (true){
+                // TODO: normal flow is changed for {@link com.example.anatoliy.oliko.activities.ChatActivity}
+                // test purposes, this part of code should be reimplemented after complete implementation
+                // of activity in order to suit client's requirement
+                if (testChatActivity()){
                     return;
                 }
 
@@ -122,7 +142,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener{
                     Link link = RealmHelper.getLinkByKey(mAutoCompleteInput.getText().toString());
 
                     if (link != null){ // Check if such link was found
-                        proceedViaLink(link);
+                        mListener.onProceedViaLinkRequest(link);
                     } else {
                         showSnackBar(getString(R.string.link_not_found_error_message));
                     }
@@ -130,11 +150,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener{
                 break;
             default:
                 // Do nothing
+                break;
         }
-    }
-
-    private void proceedViaLink(@NonNull Link link) {
-
-        ((MainActivity) getActivity()).startActivityFromLink(link);
     }
 }

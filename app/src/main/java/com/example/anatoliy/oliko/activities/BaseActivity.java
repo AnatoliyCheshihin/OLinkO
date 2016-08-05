@@ -5,6 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 /**
+ * Base activity that will be "bone" for rest activities utilized within app, please make here
+ * modifications if they are related to all activities within app
+ *
  * Created by anatoliy on 20/02/16.
  */
 public class BaseActivity extends AppCompatActivity {
