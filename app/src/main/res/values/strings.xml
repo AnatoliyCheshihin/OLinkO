@@ -32,6 +32,7 @@
     <string name="sign_up_header_text">In order to enjoy from full functionality of our application we suggest you to accomplish our registration process</string>
 
     <string name="send">Send</string>
+    <string name="pick_image_intent_text">Choose image</string>
 
     <!-- TODO: Delete prior to releasing -->
     <string-array name="default_pointer_key_array">
@@ -50,4 +51,6 @@
         <item>https://play.google.com/store/apps/details?id=com.walmart.android&amp;hl=en</item>
         <item>https://www.facebook.com/102fm</item>
     </string-array>
+
+
 </resources>

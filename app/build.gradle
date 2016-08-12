@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.anatoliy.oliko"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -31,4 +31,7 @@ dependencies {
     // Required for view pager indicator
     // https://github.com/JakeWharton/ViewPagerIndicator
     compile 'com.mcxiaoke.viewpagerindicator:library:2.4.1@aar'
+
+    // https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket
+    compile group: 'org.java-websocket', name: 'Java-WebSocket', version: '1.3.0'
 }

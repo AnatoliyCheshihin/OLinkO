@@ -1,5 +1,7 @@
 package com.example.anatoliy.oliko.models.chat;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by anatoliy on 16/07/2016.
  */
@@ -7,7 +9,7 @@ package com.example.anatoliy.oliko.models.chat;
 public class ChatMessage {
 
     private String mMessage;
-    private int mBitmapResource;
+    private Bitmap mBitmap;
     private MessageType mMessageType;
 
     public static final int NO_IMAGE = 0;
@@ -16,12 +18,12 @@ public class ChatMessage {
 
         mMessage = message;
         mMessageType = messageType;
-        mBitmapResource = NO_IMAGE;
+        mBitmap = null;
     }
 
-    public ChatMessage(MessageType messageType, int bitmapResource){
+    public ChatMessage(MessageType messageType, Bitmap bitmap){
 
-        mBitmapResource = bitmapResource;
+        mBitmap = bitmap;
         mMessageType = messageType;
         mMessage = null;
     }
@@ -43,12 +45,12 @@ public class ChatMessage {
     }
 
 
-    public int getBitmapResource(){
-        return mBitmapResource;
+    public Bitmap getBitmap(){
+        return mBitmap;
     }
 
-    public void setmBitmapResource(final int bitmapResource){
-        mBitmapResource = bitmapResource;
+    public void setmBitmap(final Bitmap bitmap){
+        mBitmap = bitmap;
     }
 
 }

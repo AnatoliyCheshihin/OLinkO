@@ -24,6 +24,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int VIEW_TYPE_USER = 0;
     private static final int VIEW_TYPE_OWNER = 1;
+    private static final int VIEW_TYPE_SYSTEM = 2;
 
     private List<ChatMessage> mDataList;
 
@@ -43,6 +44,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.chat_adapter_owner_item_layout, parent, false);
                 return new OwnerPostItemViewHolder(view);
+            case VIEW_TYPE_SYSTEM:
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.chat_adapter_system_item_layout, parent, false);
+                return new SystemPostItemViewHolder(view);
             default:
                 throw new IllegalStateException("Found unknown message type");
         }
@@ -53,28 +58,26 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         ChatMessage item = getListItem(position);
 
-        switch (item.getBitmapResource()){
-
-            case ChatMessage.NO_IMAGE: // Text
-                if (holder instanceof UserPostItemViewHolder){
-                    ((UserPostItemViewHolder) holder).mUserMessage.setText(item.getMessage());
-                } else if (holder instanceof OwnerPostItemViewHolder){
-                    ((OwnerPostItemViewHolder) holder).mOwnerMessage.setText(item.getMessage());
-                } else {
-                    throw new IllegalArgumentException("Unknown holder view type");
+        if (item.getBitmap() == null) {
+            if (holder instanceof MessageViewHolder) {
+                ((MessageViewHolder) holder).mMessage.setVisibility(View.VISIBLE);
+                if(((MessageViewHolder) holder).mImage != null) {
+                    ((MessageViewHolder) holder).mImage.setVisibility(View.GONE);
                 }
-                break;
-
-            default: // Image
-                if (holder instanceof UserPostItemViewHolder){
-                    ((UserPostItemViewHolder) holder).mUserImage.setImageResource(item.getBitmapResource());
-                } else if (holder instanceof OwnerPostItemViewHolder){
-                    ((OwnerPostItemViewHolder) holder).mOwnerImage.setImageResource(item.getBitmapResource());
-                } else {
-                    throw new IllegalArgumentException("Unknown holder view type");
+                ((MessageViewHolder) holder).mMessage.setText(item.getMessage());
+            } else {
+                throw new IllegalArgumentException("Unknown holder view type");
+            }
+        }else{
+            if (holder instanceof MessageViewHolder) {
+                ((MessageViewHolder) holder).mMessage.setVisibility(View.GONE);
+                if(((MessageViewHolder) holder).mImage != null) {
+                    ((MessageViewHolder) holder).mImage.setVisibility(View.VISIBLE);
                 }
-                break;
-
+                ((MessageViewHolder) holder).mImage.setImageBitmap(item.getBitmap());
+            } else {
+                throw new IllegalArgumentException("Unknown holder view type");
+            }
         }
     }
 
@@ -92,6 +95,8 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 return VIEW_TYPE_OWNER;
             case USER:
                 return VIEW_TYPE_USER;
+            case SYSTEM:
+                return VIEW_TYPE_SYSTEM;
             default:
                 throw new IllegalStateException("Found unknown message type");
 
@@ -108,28 +113,35 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return mDataList.get(position);
     }
 
+    protected static class MessageViewHolder extends RecyclerView.ViewHolder {
+        private ImageView mImage;
+        private TextView mMessage;
 
-    protected static class OwnerPostItemViewHolder extends RecyclerView.ViewHolder {
-
-        private ImageView mOwnerImage;
-        private TextView mOwnerMessage;
-
-        public OwnerPostItemViewHolder(View itemView) {
+        public MessageViewHolder(View itemView, int messageResourceID, int imageResourceID) {
             super(itemView);
-            mOwnerMessage = (TextView) itemView.findViewById(R.id.tvChatOwnerPostMessage);
-            mOwnerImage = (ImageView) itemView.findViewById(R.id.ivChatOwnerPostImage);
+            mMessage = (TextView) itemView.findViewById(messageResourceID);
+            if(imageResourceID!=0) {
+                mImage = (ImageView) itemView.findViewById(imageResourceID);
+            }
         }
     }
 
-    protected static class UserPostItemViewHolder extends RecyclerView.ViewHolder {
+    protected static class SystemPostItemViewHolder extends MessageViewHolder {
 
-        private ImageView mUserImage;
-        private TextView mUserMessage;
+        public SystemPostItemViewHolder(View itemView) {
+            super(itemView, R.id.tvChatSystemPostMessage,0);
+        }
+    }
 
+    protected static class OwnerPostItemViewHolder extends MessageViewHolder {
+        public OwnerPostItemViewHolder(View itemView) {
+            super(itemView, R.id.tvChatOwnerPostMessage,R.id.ivChatOwnerPostImage);
+        }
+    }
+
+    protected static class UserPostItemViewHolder extends MessageViewHolder {
         public UserPostItemViewHolder(View itemView) {
-            super(itemView);
-            mUserMessage = (TextView) itemView.findViewById(R.id.tvChatUserPostMessage);
-            mUserImage = (ImageView) itemView.findViewById(R.id.ivChatUserPostImage);
+            super(itemView,R.id.tvChatUserPostMessage,R.id.ivChatUserPostImage);
         }
     }
 }

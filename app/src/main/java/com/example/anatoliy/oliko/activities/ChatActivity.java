@@ -30,8 +30,12 @@ public class ChatActivity extends BaseActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager != null){
+            ChatFragment chatFragment = ChatFragment.newInstance();
+            Bundle arguments = new Bundle();
+            arguments.putString("roomIdentifier", getIntent().getStringExtra("roomIdentifier"));
+            chatFragment.setArguments(arguments);
             fragmentManager.beginTransaction().add(R.id.flChatActivityFragmentContainer,
-                    ChatFragment.newInstance(), ChatFragment.TAG).commit();
+                    chatFragment, ChatFragment.TAG).commit();
         }
     }
 

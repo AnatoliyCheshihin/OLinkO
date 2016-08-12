@@ -121,7 +121,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener{
     private boolean testChatActivity(){
 
         boolean skipLinkRequest = true;
-        mListener.onChatActivityStartRequest();
+
+        mListener.onChatActivityStartRequest(mAutoCompleteInput.getText().toString());
         return skipLinkRequest;
     }
 

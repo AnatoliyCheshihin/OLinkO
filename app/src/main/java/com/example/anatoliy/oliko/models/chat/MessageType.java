@@ -5,5 +5,5 @@ package com.example.anatoliy.oliko.models.chat;
  */
 
 public enum MessageType {
-    OWNER, USER
+    OWNER, USER, SYSTEM
 }
