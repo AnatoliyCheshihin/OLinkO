@@ -32,7 +32,7 @@ public class ChatActivity extends BaseActivity {
         if (fragmentManager != null){
             ChatFragment chatFragment = ChatFragment.newInstance();
             Bundle arguments = new Bundle();
-            arguments.putString("roomIdentifier", getIntent().getStringExtra("roomIdentifier"));
+            arguments.putString("initialMessage", getIntent().getStringExtra("initialMessage"));
             chatFragment.setArguments(arguments);
             fragmentManager.beginTransaction().add(R.id.flChatActivityFragmentContainer,
                     chatFragment, ChatFragment.TAG).commit();

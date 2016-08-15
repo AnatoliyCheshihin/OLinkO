@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="7">
+
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:contentDescription="@null"
+            android:id="@+id/ivChatListItemIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@android:drawable/star_big_on"/>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:layout_weight="6">
+
+        <TextView
+            android:id="@+id/tvChatListItemTitle"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/chat_list_item_margin_top_and_bottom"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/chat_list_item_title_text_size"
+            android:textColor="@color/appDarkBlue"
+            android:maxLength="33"
+            android:text="Link"/>
+
+        <TextView
+            android:id="@+id/tvChatListItemSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvChatListItemTitle"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/appLightBlue"
+            android:textSize="@dimen/chat_list_item_content_text_size"
+            android:text="http://www.link.co.il"/>
+
+        <TextView
+            android:id="@+id/tvChatListItemTimestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5sp"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/badge_color"
+            android:textSize="@dimen/chat_list_item_timestamp_text_size"
+            android:text="11:45"/>
+        <TextView
+            android:id="@+id/tvChatListItemCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tvChatListItemTimestamp"
+            android:layout_margin="5sp"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@android:color/white"
+            android:background="@drawable/badge"
+            android:textSize="@dimen/chat_list_item_badge_text_size"
+            android:text="3"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

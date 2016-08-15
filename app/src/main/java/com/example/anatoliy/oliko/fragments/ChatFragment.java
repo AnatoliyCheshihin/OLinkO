@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.anatoliy.oliko.R;
 import com.example.anatoliy.oliko.adapters.regular.ChatAdapter;
+import com.example.anatoliy.oliko.helpers.RealmHelper;
 import com.example.anatoliy.oliko.models.chat.ChatMessage;
 import com.example.anatoliy.oliko.models.chat.MessageType;
 import com.example.anatoliy.oliko.utils.ImagePicker;
@@ -39,6 +40,7 @@ import java.lang.ref.WeakReference;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -67,7 +69,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
     private LinearLayoutManager mLayoutManager;
     private ChatAdapter mAdapter;
 
-    private WebSocketClient mSocket;
+    private ArrayList<Runnable> mRunnableQueue = new ArrayList<>();
 
     public static ChatFragment newInstance(){
         return new ChatFragment();
@@ -101,19 +103,11 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-
-        if(mSocket==null){
-
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        if(mSocket!=null){
-            mSocket.close();
-            mSocket = null;
-        }
     }
 
     private void init() {
@@ -135,87 +129,168 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
 
     @SuppressWarnings("ALL")
     private void connectToServer() {
-        String roomID = getArguments().getString("roomIdentifier");
-        if(mSocket!=null){
-            try {
-                mSocket.closeBlocking();
-                mSocket = null;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            mSocket = new WebSocketClient(new URI("ws://lyric.vn:8088/room/"+roomID)) {
+        final String message = getArguments().getString("initialMessage");
+        if("סלקום טי וי".equals(message) || "test1".equals(message)){
+            mRunnableQueue.add(new Runnable() {
                 @Override
-                public void onOpen(ServerHandshake handshakedata) {
-                    if(mSocket == this){
-                        systemMessage("You are connected!");
-                    }
-                }
-
-                @Override
-                public void onMessage(String message) {
-                    if(mSocket == this){
-                        try {
-                            JSONObject messageJSON = new JSONObject(message);
-                            Log.d(TAG,"Message json "+message);
-                            if(messageJSON!=null && messageJSON.getString("type").equals("message")){
-                                String chatText = messageJSON.getString("message");
-                                if(chatText != null) {
-                                    if (chatText.startsWith("msg:")) {
-                                        final ChatMessage newMessage = new ChatMessage(MessageType.USER, chatText.substring(4));
-                                        mMessageInput.post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                mAdapter.addItem(newMessage);
-                                            }
-                                        });
-                                    } else if (chatText.startsWith("sys:")) {
-                                        final ChatMessage newMessage = new ChatMessage(MessageType.SYSTEM, chatText.substring(4));
-                                        mMessageInput.post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                mAdapter.addItem(newMessage);
-                                            }
-                                        });
-                                    } else if (chatText.startsWith("bmp:")) {
-                                        String base64 = chatText.substring(4);
-                                        byte[] bytes = Base64.decode(base64, Base64.DEFAULT);
-
-                                        final ChatMessage newMessage = new ChatMessage(MessageType.USER, BitmapFactory.decodeByteArray(bytes,0,bytes.length));
-                                        mMessageInput.post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                mAdapter.addItem(newMessage);
-                                            }
-                                        });
-                                    }
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                public void run() {
+                    final ChatMessage newMessage = new ChatMessage(MessageType.OWNER, "מתעניין בסלקום טי וי");
+                    mMessageInput.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addItem(newMessage);
                         }
-                    }
+                    });
                 }
-
+            });
+            mRunnableQueue.add(new Runnable() {
                 @Override
-                public void onClose(int code, String reason, boolean remote) {
-                    if(mSocket == this){
-                        systemMessage("You are disconnected");
-                    }
+                public void run() {
+                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, "האם לשלוח שם, טלפון ומייל לחברה?");
+                    mMessageInput.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addItem(newMessage);
+                        }
+                    });
                 }
-
+            });
+            mRunnableQueue.add(new Runnable() {
                 @Override
-                public void onError(Exception ex) {
-                    if(mSocket == this){
-                        systemMessage("An error has been occurred...");
-                    }
+                public void run() {
+                    final ChatMessage newMessage = new ChatMessage(MessageType.OWNER, "ישראל ישראלי\n" +
+                            "05412345678\n" +
+                            "israel@gmail.com\n");
+                    mMessageInput.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addItem(newMessage);
+                        }
+                    });
                 }
-            };
-            mSocket.connect();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+            });
+            mRunnableQueue.add(new Runnable() {
+                @Override
+                public void run() {
+                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, BitmapFactory.decodeResource(getResources(), R.drawable.sample) );
+                    mMessageInput.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addItem(newMessage);
+                        }
+                    });
+                }
+            });
+            RealmHelper.addOrCreateChatList("cellcom","Cellcom","Cellcom TV promotion",new Date(),3);
+        }else if("volvo 40".equals(message)){
+            mRunnableQueue.add(new Runnable() {
+                @Override
+                public void run() {
+                    final ChatMessage newMessage = new ChatMessage(MessageType.OWNER, "volvo 40" );
+                    mMessageInput.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addItem(newMessage);
+                        }
+                    });
+                }
+            });
+            mRunnableQueue.add(new Runnable() {
+                @Override
+                public void run() {
+                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, BitmapFactory.decodeResource(getResources(), R.drawable.sample) );
+                    final ChatMessage newMessage2 = new ChatMessage(MessageType.USER, "http://www.volvocars.com/intl/cars/new-models/v40");
+                    mMessageInput.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addItem(newMessage);
+                            mAdapter.addItem(newMessage2);
+                        }
+                    });
+                }
+            });
+            RealmHelper.addOrCreateChatList("volvo","Volvo","Volvo group",new Date(),1);
+        }else if("Knight Frank".equals(message)){
+            mRunnableQueue.add(new Runnable() {
+                @Override
+                public void run() {
+                    final ChatMessage newMessage = new ChatMessage(MessageType.OWNER, "Knight Frank 3003493" );
+                    mMessageInput.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addItem(newMessage);
+                        }
+                    });
+                }
+            });
+            mRunnableQueue.add(new Runnable() {
+                @Override
+                public void run() {
+                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, BitmapFactory.decodeResource(getResources(), R.drawable.sample) );
+                    final ChatMessage newMessage2 = new ChatMessage(MessageType.USER, "http://search.knightfrank.com/3003493");
+                    mMessageInput.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addItem(newMessage);
+                            mAdapter.addItem(newMessage2);
+                        }
+                    });
+                }
+            });
+            RealmHelper.addOrCreateChatList("kf","Knight Frank","Property #3003494",new Date(),0);
+        }else if("Black Crown".equals(message)){
+            mRunnableQueue.add(new Runnable() {
+                @Override
+                public void run() {
+                    final ChatMessage newMessage = new ChatMessage(MessageType.OWNER, "+tasteis" );
+                    mMessageInput.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addItem(newMessage);
+                        }
+                    });
+                }
+            });
+            mRunnableQueue.add(new Runnable() {
+                @Override
+                public void run() {
+                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, "Please upload photo" );
+                    mMessageInput.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addItem(newMessage);
+                        }
+                    });
+                }
+            });
+            mRunnableQueue.add(new Runnable() {
+                @Override
+                public void run() {
+                    final ChatMessage newMessage = new ChatMessage(MessageType.OWNER, BitmapFactory.decodeResource(getResources(), R.drawable.sample));
+                    mMessageInput.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addItem(newMessage);
+                        }
+                    });
+                }
+            });
+            mRunnableQueue.add(new Runnable() {
+                @Override
+                public void run() {
+                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, "You won! Black Crown 6 pack\n" +
+                            "Please enter your full name and address" );
+                    mMessageInput.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addItem(newMessage);
+                        }
+                    });
+                }
+            });
+            RealmHelper.addOrCreateChatList("kf","Knight Frank","Property #3003494",new Date(),0);
         }
+        delayedRunProcess();
     }
 
     private void handlePostImageClick(){
@@ -227,29 +302,10 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
 
         final String message = mMessageInput.getText().toString();
 
-        if( mSocket != null ){
-            if(mSocket.getConnection().isConnecting()){
-                systemMessage("Still connecting... Please wait...");
-                return;
-            }
-            if(!mSocket.getConnection().isOpen()){
-                systemMessage("Connection to server is not opened...");
-                return;
-            }
-        }
-
         if (!message.isEmpty()){
-
             final ChatMessage ownerMessage = new ChatMessage(MessageType.OWNER, message);
             mAdapter.addItem(ownerMessage);
             clearInput();
-
-            new Thread(){
-                @Override
-                public void run() {
-                    mSocket.send("msg:"+message);
-                }
-            }.start();
         }
     }
 
@@ -282,39 +338,16 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
-            case PICK_IMAGE_ID:
-                Bitmap bitmap = ImagePicker.getImageFromResult(getContext(), resultCode, data);
-                if(bitmap.getWidth()>=400 || bitmap.getHeight()>=400){
-                    int w = bitmap.getWidth(), h = bitmap.getHeight();
-                    double ratio = Math.min(400./w,400./h);
-                    w = (int)(w*ratio); h = (int)(h*ratio);
-                    Bitmap bitmap2 = Bitmap.createScaledBitmap(bitmap, w, h, true);
-                    bitmap.recycle();
-                    bitmap = bitmap2;
+    synchronized void delayedRunProcess(){
+        if(mRunnableQueue!=null && mRunnableQueue.size()>0){
+            Runnable r = mRunnableQueue.remove(0);
+            r.run();
+            mMessageInput.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    delayedRunProcess();
                 }
-                final ChatMessage newMessage = new ChatMessage(MessageType.OWNER, bitmap);
-                mMessageInput.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAdapter.addItem(newMessage);
-                    }
-                });
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-                final String encodedImage = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
-                new Thread(){
-                    @Override
-                    public void run() {
-                        mSocket.send("bmp:"+encodedImage);
-                    }
-                }.start();
-                break;
-            default:
-                super.onActivityResult(requestCode, resultCode, data);
-                break;
+            }, 700);
         }
     }
 }

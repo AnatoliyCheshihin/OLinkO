@@ -18,9 +18,9 @@
         android:maxLines="1"
         android:layout_centerHorizontal="true"
         android:ellipsize="end"
+        android:imeOptions="actionGo"
         android:drawableLeft="@android:drawable/ic_menu_search"
         android:hint="@string/keyword_hint"/>
-
     <TextView
         android:id="@+id/tvGo"
         android:layout_width="wrap_content"
@@ -31,5 +31,14 @@
         android:layout_centerHorizontal="true"
         android:textSize="@dimen/title_text_size"
         android:textColor="@color/text_blue_selector"/>
+    <android.support.v7.widget.RecyclerView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rvChatList"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/tvGo" />
 
 </RelativeLayout>

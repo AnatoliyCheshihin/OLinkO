@@ -3,6 +3,7 @@ package com.example.anatoliy.oliko.helpers;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.example.anatoliy.oliko.models.ChatList;
 import com.example.anatoliy.oliko.models.Link;
 
 import java.util.ArrayList;
@@ -162,6 +163,24 @@ public final class RealmHelper {
         }
     }
 
+    public static ArrayList<ChatList> chatList = new ArrayList<>();
+    public static void addOrCreateChatList(String key, String title, String subtitle, Date lastModified, int msgCount){
+        for(ChatList chat : chatList){
+            if(key.equals(chat.getKey())){
+                updateChatList(chat, title, subtitle, lastModified, msgCount);
+                return;
+            }
+        }
+        ChatList chat = new ChatList();
+        updateChatList(chat, title, subtitle, lastModified, msgCount);
+        chatList.add(chat);
+    }
+    private static void updateChatList(ChatList chat, String title, String subtitle, Date lastModified, int msgCount){
+        chat.setTitle(title);
+        chat.setSubtitle(subtitle);
+        chat.setLastTime(lastModified);
+        chat.setMessageCount(msgCount);
+    }
    /* private static void addProduct(Product product){
 
         if (product != null && product.getName() != null){
@@ -266,16 +285,28 @@ public final class RealmHelper {
 */
 
     // --------------------------------------------------------------------------------------------
-    class Tables {
+    interface Table{
 
-        class Link {
+    }
 
+    static class Tables {
+
+        class Link implements Table {
             public static final String KEY = "key";
             public static final String VALUE = "value";
             // public static final String IS_PHONE_NUMBER = "isPhoneNumber";
             public static final String CREATION_DATE = "creationDate";
             public static final String LAST_TIME_USED_DATE = "lastTimeUsedDate";
             public static final String FAVORITE = "favorite";
+        }
+
+        class ChatHistory implements Table {
+            public static final String KEY = "key";
+            public static final String TITLE = "title";
+            public static final String SUBTITLE = "subtitle";
+            public static final String MESSAGECOUNT = "messageCount";
+            public static final String CREATION_DATE = "creationDate";
+            public static final String LAST_DATE = "lastTime";
         }
     }
 }

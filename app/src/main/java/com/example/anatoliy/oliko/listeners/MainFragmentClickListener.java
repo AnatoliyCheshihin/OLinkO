@@ -12,6 +12,6 @@ import com.example.anatoliy.oliko.models.Link;
  */
 
 public interface MainFragmentClickListener {
-    void onChatActivityStartRequest(String roomIdentifier);
+    void onChatActivityStartRequest(String initialMessage);
     void onProceedViaLinkRequest(@NonNull Link link);
 }

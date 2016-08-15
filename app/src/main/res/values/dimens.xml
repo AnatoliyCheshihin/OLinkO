@@ -30,4 +30,10 @@
     <dimen name="chat_menu_margin">5dp</dimen>
     <dimen name="chat_message_item_margin">5dp</dimen>
     <dimen name="chat_message_item_text_padding">5dp</dimen>
+
+    <dimen name="chat_list_item_title_text_size">18sp</dimen>
+    <dimen name="chat_list_item_content_text_size">15sp</dimen>
+    <dimen name="chat_list_item_timestamp_text_size">10sp</dimen>
+    <dimen name="chat_list_item_badge_text_size">10sp</dimen>
+    <dimen name="chat_list_item_margin_top_and_bottom">5dp</dimen>
 </resources>

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.anatoliy.oliko.R;
 import com.example.anatoliy.oliko.listeners.OnListItemClickListener;
-import com.example.anatoliy.oliko.models.Link;
+import com.example.anatoliy.oliko.models.ChatList;
 import com.example.anatoliy.oliko.utils.DateHelper;
 
 import java.util.List;
@@ -21,21 +21,21 @@ import java.util.List;
  *
  * Created by anatoliy on 20/02/16.
  */
-public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
+public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder> {
 
-    private static final String TAG = HistoryAdapter.class.getSimpleName();
+    private static final String TAG = ChatListAdapter.class.getSimpleName();
 
-    private List<Link> mItemList;
+    private List<ChatList> mItemList;
     private OnListItemClickListener mListener;
 
     /**
      * Adapter's constructor, retrieves as arguments list with data and optional listener
      * for intercepting click events
      *
-     * @param itemList list with {@link Link} objects
+     * @param itemList list with {@link ChatList} objects
      * @param listener {@link OnListItemClickListener} for retrieving click events within list
      */
-    public HistoryAdapter(@NonNull List<Link> itemList, OnListItemClickListener listener) {
+    public ChatListAdapter(@NonNull List<ChatList> itemList, OnListItemClickListener listener) {
 
         mItemList = itemList;
         if (listener != null) {
@@ -46,9 +46,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     /**
      * Replaces existing content of adapter to updated, based on provided data
      *
-     * @param updatedData List with {@link Link} objects that should replace existing
+     * @param updatedData List with {@link ChatList} objects that should replace existing
      */
-    public void updateData(@NonNull List<Link> updatedData){
+    public void updateData(@NonNull List<ChatList> updatedData){
 
         // Remove all data
         clearList();
@@ -65,36 +65,31 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
      *
      * @param parent hosting group view
      * @param viewType item's view type
-     * @return {@link HistoryViewHolder}
+     * @return {@link ChatListViewHolder}
      */
     @Override
-    public HistoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ChatListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.history_list_item, parent, false);
-        return new HistoryViewHolder(view);
+                .inflate(R.layout.chat_list_item, parent, false);
+        return new ChatListViewHolder(view);
     }
 
     /**
      * Binds data from history item to view
      *
-     * @param holder {@link HistoryViewHolder}
+     * @param holder {@link ChatListViewHolder}
      * @param position int, item position within list
      */
     @Override
-    public void onBindViewHolder(HistoryViewHolder holder, int position) {
+    public void onBindViewHolder(ChatListViewHolder holder, int position) {
 
-        Link item = getListItem(position);
+        ChatList item = getListItem(position);
 
-        holder.link.setText(item.getKey().toUpperCase());
-        holder.linkValue.setText(item.getValue());
-        holder.visitTime.setText(DateHelper.shortDateHourFromDate(item.getLastTimeUsedDate()));
-
-        if (item.isFavorite()){
-            holder.favoriteIcon.setImageResource(android.R.drawable.star_big_on);
-        } else {
-            holder.favoriteIcon.setImageResource(android.R.drawable.star_big_off);
-        }
+        holder.title.setText(item.getTitle());
+        holder.subtitle.setText(item.getSubtitle());
+        holder.timestamp.setText(DateHelper.shortDateHourFromDate(item.getLastTime()));
+        holder.badge.setText(String.valueOf(item.getMessageCount()));
     }
 
     /**
@@ -116,7 +111,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         }
     }
 
-    private void addItem(final int position, Link item){
+    private void addItem(final int position, ChatList item){
 
         mItemList.add(position, item);
         notifyItemInserted(position);
@@ -128,29 +123,31 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         notifyItemRemoved(position);
     }
 
-    private Link getListItem(final int position){
+    private ChatList getListItem(final int position){
 
         return mItemList.get(position);
     }
 
     // --------------------------------------------------------------------------------------------
-    class HistoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ChatListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView link;
-        TextView linkValue;
-        TextView visitTime;
-        ImageView favoriteIcon;
+        TextView title;
+        TextView subtitle;
+        TextView timestamp;
+        TextView badge;
+        ImageView chatIcon;
 
-        HistoryViewHolder(View itemView) {
+        ChatListViewHolder(View itemView) {
             super(itemView);
 
-            link = (TextView) itemView.findViewById(R.id.tvHistoryListItemLink);
-            linkValue = (TextView) itemView.findViewById(R.id.tvHistoryListItemLinkValue);
-            visitTime = (TextView) itemView.findViewById(R.id.tvHistoryListItemDate);
-            favoriteIcon = (ImageView) itemView.findViewById(R.id.ivHistoryListItemFavorite);
+            title = (TextView) itemView.findViewById(R.id.tvChatListItemTitle);
+            subtitle = (TextView) itemView.findViewById(R.id.tvChatListItemSubtitle);
+            timestamp = (TextView) itemView.findViewById(R.id.tvChatListItemTimestamp);
+            badge = (TextView) itemView.findViewById(R.id.tvChatListItemCount);
+            chatIcon = (ImageView) itemView.findViewById(R.id.ivChatListItemIcon);
 
             // Specify listener
-            itemView.setOnClickListener(HistoryViewHolder.this);
+            itemView.setOnClickListener(ChatListViewHolder.this);
         }
 
         @Override

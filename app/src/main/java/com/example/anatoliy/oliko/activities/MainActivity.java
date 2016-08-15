@@ -62,10 +62,9 @@ public class MainActivity extends BaseActivity implements MainFragmentClickListe
     /**
      * Takes user to {@link ChatActivity}
      */
-    public void proceedToChatActivity(String roomIdentifier){
-
+    public void proceedToChatActivity(String initialMessage){
         Intent intent = new Intent(MainActivity.this, ChatActivity.class);
-        intent.putExtra("roomIdentifier", roomIdentifier);
+        intent.putExtra("initialMessage", initialMessage);
         startActivity(intent);
     }
 
@@ -134,8 +133,8 @@ public class MainActivity extends BaseActivity implements MainFragmentClickListe
     }
 
     @Override
-    public void onChatActivityStartRequest(String roomIdentifier) {
-        proceedToChatActivity(roomIdentifier);
+    public void onChatActivityStartRequest(String initialMessage) {
+        proceedToChatActivity(initialMessage);
     }
 
     @Override

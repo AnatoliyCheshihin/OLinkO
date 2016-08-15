@@ -3,6 +3,8 @@ package com.example.anatoliy.oliko.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,17 +16,23 @@ import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
 import com.example.anatoliy.oliko.R;
+import com.example.anatoliy.oliko.adapters.helpers.DividerItemDecoration;
+import com.example.anatoliy.oliko.adapters.regular.ChatListAdapter;
+import com.example.anatoliy.oliko.adapters.regular.HistoryAdapter;
 import com.example.anatoliy.oliko.helpers.RealmHelper;
 import com.example.anatoliy.oliko.listeners.MainFragmentClickListener;
+import com.example.anatoliy.oliko.listeners.OnListItemClickListener;
+import com.example.anatoliy.oliko.models.ChatList;
 import com.example.anatoliy.oliko.models.Link;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * Created by anatoliy on 17/02/16.
  */
-public class MainFragment extends BaseFragment implements View.OnClickListener{
+public class MainFragment extends BaseFragment implements View.OnClickListener, OnListItemClickListener {
 
     private static final String TAG = MainFragment.class.getSimpleName();
 
@@ -34,6 +42,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener{
     private TextView mGo;
 
     private MainFragmentClickListener mListener;
+    private ChatListAdapter mAdapter;
+    private RecyclerView mRecyclerView;
 
     @Override
     public void onAttach(Context context) {
@@ -56,6 +66,13 @@ public class MainFragment extends BaseFragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_main_layout, container, false);
         initUi(view);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mAdapter = new ChatListAdapter(RealmHelper.chatList, MainFragment.this);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void initUi(View view) {
@@ -92,6 +109,15 @@ public class MainFragment extends BaseFragment implements View.OnClickListener{
         mGo = (TextView) view.findViewById(R.id.tvGo);
         mGo.setOnClickListener(this);
         disableGoButton();
+
+
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.rvChatList);
+        mAdapter = new ChatListAdapter(RealmHelper.chatList, MainFragment.this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private boolean isInputSetCorrectly(){
@@ -153,5 +179,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener{
                 // Do nothing
                 break;
         }
+    }
+
+    @Override
+    public void onListItemClick(int position) {
+
     }
 }
