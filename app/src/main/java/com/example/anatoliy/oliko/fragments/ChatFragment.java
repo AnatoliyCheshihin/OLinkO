@@ -133,6 +133,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
             "Knight Frank",
             "Black Crown",
             "耐克","testcn",
+            "coles app"
     };
     @SuppressWarnings("ALL")
     private void connectToServer() {
@@ -324,6 +325,34 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                 }
             });
             RealmHelper.addOrCreateChatList("nikecn",R.drawable.logo,message,"Nike","Nike",new Date(),1);
+        }else if("coles app".equalsIgnoreCase(message)){
+            mRunnableQueue.add(new Runnable() {
+                @Override
+                public void run() {
+                    final ChatMessage newMessage = new ChatMessage(MessageType.OWNER, "Coles App" );
+                    mMessageInput.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addItem(newMessage);
+                        }
+                    });
+                }
+            });
+            mRunnableQueue.add(new Runnable() {
+                @Override
+                public void run() {
+                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, BitmapFactory.decodeResource(getResources(), R.drawable.coles_ads) );
+                    final ChatMessage newMessage2 = new ChatMessage(MessageType.USER, "https://play.google.com/store/apps/details?id=com.coles.android.shopmate&hl=en");
+                    mMessageInput.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addItem(newMessage);
+                            mAdapter.addItem(newMessage2);
+                        }
+                    });
+                }
+            });
+            RealmHelper.addOrCreateChatList("cole",R.drawable.coles,message,"Coles App","#coleapp",new Date(),0);
         }
         delayedRunProcess();
     }
