@@ -35,15 +35,15 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment = null;
         switch (FragmentTypes.fromInt(position)){
-            case EDITOR:
-                fragment = new EditorFragment();
-                break;
+//            case EDITOR:
+//                fragment = new EditorFragment();
+//                break;
             case MAIN:
                 fragment = new MainFragment();
                 break;
-            case HISTORY:
-                fragment = HistoryFragment.newInstance();
-                break;
+//            case HISTORY:
+//                fragment = HistoryFragment.newInstance();
+//                break;
             case USER_PROFILE:
                 fragment = new UserProfileFragment();
                 break;
@@ -65,12 +65,12 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
 
         switch (FragmentTypes.fromInt(position)){
-            case EDITOR:
-                return "Admin";
+//            case EDITOR:
+//                return "Admin";
             case MAIN:
                 return "Main";
-            case HISTORY:
-                return "History";
+//            case HISTORY:
+//                return "History";
             case USER_PROFILE:
                 return "Profile";
             /*case FAVORITES:

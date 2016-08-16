@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.anatoliy.oliko.R;
 import com.example.anatoliy.oliko.listeners.OnListItemClickListener;
+import com.example.anatoliy.oliko.models.Ads;
 import com.example.anatoliy.oliko.models.ChatList;
 import com.example.anatoliy.oliko.utils.DateHelper;
 
@@ -23,9 +24,12 @@ import java.util.List;
  */
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder> {
 
+    private static final int CHAT_LIST_ROW_TYPE_CHAT = 0;
+    private static final int CHAT_LIST_ROW_TYPE_ADS = 1;
+
     private static final String TAG = ChatListAdapter.class.getSimpleName();
 
-    private List<ChatList> mItemList;
+    private List<Object> mItemList;
     private OnListItemClickListener mListener;
 
     /**
@@ -35,7 +39,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
      * @param itemList list with {@link ChatList} objects
      * @param listener {@link OnListItemClickListener} for retrieving click events within list
      */
-    public ChatListAdapter(@NonNull List<ChatList> itemList, OnListItemClickListener listener) {
+    public ChatListAdapter(@NonNull List<Object> itemList, OnListItemClickListener listener) {
 
         mItemList = itemList;
         if (listener != null) {
@@ -43,21 +47,10 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
         }
     }
 
-    /**
-     * Replaces existing content of adapter to updated, based on provided data
-     *
-     * @param updatedData List with {@link ChatList} objects that should replace existing
-     */
-    public void updateData(@NonNull List<ChatList> updatedData){
+    @Override
+    public int getItemViewType(int position) {
+        return (getListItem(position) instanceof Ads) ? CHAT_LIST_ROW_TYPE_ADS : CHAT_LIST_ROW_TYPE_CHAT;
 
-        // Remove all data
-        clearList();
-
-        // Add new data
-        final int listCount = updatedData.size();
-        for (int i=0; i<listCount; i++){
-            addItem(i, updatedData.get(i));
-        }
     }
 
     /**
@@ -70,26 +63,43 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
     @Override
     public ChatListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.chat_list_item, parent, false);
-        return new ChatListViewHolder(view);
+        if(viewType==CHAT_LIST_ROW_TYPE_CHAT) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.chat_list_item, parent, false);
+            return new ChatListChatViewHolder(view);
+        }else{
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.chat_list_ads_item, parent, false);
+            return new ChatListAdsViewHolder(view);
+        }
     }
 
     /**
      * Binds data from history item to view
      *
-     * @param holder {@link ChatListViewHolder}
+     * @param holderObj {@link ChatListViewHolder}
      * @param position int, item position within list
      */
     @Override
-    public void onBindViewHolder(ChatListViewHolder holder, int position) {
+    public void onBindViewHolder(ChatListViewHolder holderObj, int position) {
 
-        ChatList item = getListItem(position);
+        Object itemObj = getListItem(position);
 
-        holder.title.setText(item.getTitle());
-        holder.subtitle.setText(item.getSubtitle());
-        holder.timestamp.setText(DateHelper.shortDateHourFromDate(item.getLastTime()));
-        holder.badge.setText(String.valueOf(item.getMessageCount()));
+        if(itemObj instanceof ChatList){
+            ChatList item = (ChatList)itemObj;
+            ChatListChatViewHolder holder = (ChatListChatViewHolder)holderObj;
+            holder.title.setText(item.getTitle());
+            holder.subtitle.setText(item.getSubtitle());
+            holder.timestamp.setText(DateHelper.shortDateHourFromDate(item.getLastTime()));
+            holder.badge.setText(String.valueOf(item.getMessageCount()));
+            if(item.getBitmapResourceID()!=0){
+                holder.chatIcon.setImageResource(item.getBitmapResourceID());
+            }
+        } else if(itemObj instanceof Ads){
+            Ads item = (Ads)itemObj;
+            ChatListAdsViewHolder holder = (ChatListAdsViewHolder) holderObj;
+            holder.adsImage.setImageResource(item.getBitmapResourceID());
+        }
     }
 
     /**
@@ -99,57 +109,19 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
      */
     @Override
     public int getItemCount() {
-
         return mItemList.size();
     }
 
-    private void clearList(){
-
-        final int listCount = mItemList.size();
-        for (int i = listCount-1; i>=0; i--){
-            removeItem(i);
-        }
-    }
-
-    private void addItem(final int position, ChatList item){
-
-        mItemList.add(position, item);
-        notifyItemInserted(position);
-    }
-
-    private void removeItem(final int position){
-
-        mItemList.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    private ChatList getListItem(final int position){
+    public Object getListItem(final int position){
 
         return mItemList.get(position);
     }
 
-    // --------------------------------------------------------------------------------------------
-    class ChatListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        TextView title;
-        TextView subtitle;
-        TextView timestamp;
-        TextView badge;
-        ImageView chatIcon;
-
-        ChatListViewHolder(View itemView) {
+    class ChatListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public ChatListViewHolder(View itemView) {
             super(itemView);
-
-            title = (TextView) itemView.findViewById(R.id.tvChatListItemTitle);
-            subtitle = (TextView) itemView.findViewById(R.id.tvChatListItemSubtitle);
-            timestamp = (TextView) itemView.findViewById(R.id.tvChatListItemTimestamp);
-            badge = (TextView) itemView.findViewById(R.id.tvChatListItemCount);
-            chatIcon = (ImageView) itemView.findViewById(R.id.ivChatListItemIcon);
-
-            // Specify listener
             itemView.setOnClickListener(ChatListViewHolder.this);
         }
-
         @Override
         public void onClick(View v) {
 
@@ -161,6 +133,37 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
                     Log.i(TAG, "Item " + position + " clicked");
                 }
             }
+        }
+    }
+
+    // --------------------------------------------------------------------------------------------
+    class ChatListChatViewHolder extends ChatListViewHolder {
+
+        TextView title;
+        TextView subtitle;
+        TextView timestamp;
+        TextView badge;
+        ImageView chatIcon;
+
+        ChatListChatViewHolder(View itemView) {
+            super(itemView);
+
+            title = (TextView) itemView.findViewById(R.id.tvChatListItemTitle);
+            subtitle = (TextView) itemView.findViewById(R.id.tvChatListItemSubtitle);
+            timestamp = (TextView) itemView.findViewById(R.id.tvChatListItemTimestamp);
+            badge = (TextView) itemView.findViewById(R.id.tvChatListItemCount);
+            chatIcon = (ImageView) itemView.findViewById(R.id.ivChatListItemIcon);
+        }
+    }
+    // --------------------------------------------------------------------------------------------
+    class ChatListAdsViewHolder extends ChatListViewHolder {
+
+        ImageView adsImage;
+
+        ChatListAdsViewHolder(View itemView) {
+            super(itemView);
+
+            adsImage = (ImageView) itemView.findViewById(R.id.ivChatListAdsItemBitmap);
         }
     }
 }

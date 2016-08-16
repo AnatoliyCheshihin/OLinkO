@@ -1,5 +1,7 @@
 package com.example.anatoliy.oliko.models;
 
+import android.graphics.Bitmap;
+
 import java.util.Date;
 
 import io.realm.RealmObject;
@@ -12,12 +14,15 @@ public class ChatList extends RealmObject {
 
     @PrimaryKey
     private String key;
+    private String message;
     private String title;
     private String subtitle;
 
     private int messageCount;
     private Date creationDate;
     private Date lastTime;
+
+    private int bitmapResourceID;
 
     public ChatList() {
         // Extends for Realm only, don't invoke manually
@@ -69,5 +74,21 @@ public class ChatList extends RealmObject {
 
     public void setLastTime(Date lastTime) {
         this.lastTime = lastTime;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public int getBitmapResourceID() {
+        return bitmapResourceID;
+    }
+
+    public void setBitmapResourceID(int bitmapResourceID) {
+        this.bitmapResourceID = bitmapResourceID;
     }
 }

@@ -22,11 +22,14 @@ import com.example.anatoliy.oliko.adapters.regular.HistoryAdapter;
 import com.example.anatoliy.oliko.helpers.RealmHelper;
 import com.example.anatoliy.oliko.listeners.MainFragmentClickListener;
 import com.example.anatoliy.oliko.listeners.OnListItemClickListener;
+import com.example.anatoliy.oliko.models.Ads;
 import com.example.anatoliy.oliko.models.ChatList;
 import com.example.anatoliy.oliko.models.Link;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.Realm;
 
 /**
  *
@@ -71,7 +74,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onResume() {
         super.onResume();
-        mAdapter = new ChatListAdapter(RealmHelper.chatList, MainFragment.this);
+        mAdapter = new ChatListAdapter(buildChatListArray(), MainFragment.this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -112,12 +115,32 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rvChatList);
-        mAdapter = new ChatListAdapter(RealmHelper.chatList, MainFragment.this);
+        mAdapter = new ChatListAdapter(buildChatListArray(), MainFragment.this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private List<Object> buildChatListArray() {
+        ArrayList<Object> list = new ArrayList<>();
+        if(RealmHelper.chatList.size()==0){
+            Ads ads = new Ads();
+            ads.setBitmapResourceID(R.drawable.adv1);
+            list.add(ads);
+        } else if(RealmHelper.chatList.size()==1){
+            list.addAll(RealmHelper.chatList);
+            Ads ads = new Ads();
+            ads.setBitmapResourceID(R.drawable.adv2);
+            list.add(ads);
+        } else {
+            list.addAll(RealmHelper.chatList);
+            Ads ads = new Ads();
+            ads.setBitmapResourceID(R.drawable.adv3);
+            list.add(1,ads);
+        }
+        return list;
     }
 
     private boolean isInputSetCorrectly(){
@@ -146,10 +169,22 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     // TODO: delete this after implementation of chat activity instead of normal flow that was used previously
     private boolean testChatActivity(){
 
-        boolean skipLinkRequest = true;
+        boolean isValidKey = false;
 
-        mListener.onChatActivityStartRequest(mAutoCompleteInput.getText().toString());
-        return skipLinkRequest;
+        String word = mAutoCompleteInput.getText().toString();
+
+        for(String caseWord : ChatFragment.possibleCases){
+            if(caseWord.equalsIgnoreCase(word)){
+                isValidKey=true;
+                break;
+            }
+        }
+
+        if(isValidKey) {
+            mListener.onChatActivityStartRequest(word);
+        }
+
+        return true;
     }
 
     @Override
@@ -183,6 +218,9 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onListItemClick(int position) {
-
+        if(position>=0 && position<RealmHelper.chatList.size()) {
+            ChatList chat = RealmHelper.chatList.get(position);
+            mListener.onChatActivityStartRequest(chat.getMessage());
+        }
     }
 }

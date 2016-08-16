@@ -1,6 +1,7 @@
 package com.example.anatoliy.oliko.helpers;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 
 import com.example.anatoliy.oliko.models.ChatList;
@@ -164,19 +165,22 @@ public final class RealmHelper {
     }
 
     public static ArrayList<ChatList> chatList = new ArrayList<>();
-    public static void addOrCreateChatList(String key, String title, String subtitle, Date lastModified, int msgCount){
+    public static void addOrCreateChatList(String key, int icon, String msg, String title, String subtitle, Date lastModified, int msgCount){
         for(ChatList chat : chatList){
             if(key.equals(chat.getKey())){
-                updateChatList(chat, title, subtitle, lastModified, msgCount);
+                updateChatList(chat, icon, msg, title, subtitle, lastModified, msgCount);
                 return;
             }
         }
         ChatList chat = new ChatList();
-        updateChatList(chat, title, subtitle, lastModified, msgCount);
+        chat.setKey(key);
+        updateChatList(chat, icon, msg, title, subtitle, lastModified, msgCount);
         chatList.add(chat);
     }
-    private static void updateChatList(ChatList chat, String title, String subtitle, Date lastModified, int msgCount){
+    private static void updateChatList(ChatList chat, int icon, String msg, String title, String subtitle, Date lastModified, int msgCount){
         chat.setTitle(title);
+        chat.setMessage(msg);
+        chat.setBitmapResourceID(icon);
         chat.setSubtitle(subtitle);
         chat.setLastTime(lastModified);
         chat.setMessageCount(msgCount);

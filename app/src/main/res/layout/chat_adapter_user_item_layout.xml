@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/chat_message_item_margin"
-    android:background="@drawable/bubble_yellow">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:contentDescription="@null"
-        android:id="@+id/ivChatUserPostImage"
-        android:layout_gravity="center"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
-    <TextView
-        android:id="@+id/tvChatUserPostMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:linksClickable="true"
-        android:autoLink="web|email"
-        android:padding="@dimen/chat_message_item_text_padding"
-        android:text=""/>
+        android:layout_margin="@dimen/chat_message_item_margin"
+        android:background="@drawable/bubble_yellow">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/ivChatUserPostImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvChatUserPostMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="web|email"
+            android:linksClickable="true"
+            android:padding="@dimen/chat_message_item_text_padding"
+            android:text="" />
+
+    </FrameLayout>
+</LinearLayout>

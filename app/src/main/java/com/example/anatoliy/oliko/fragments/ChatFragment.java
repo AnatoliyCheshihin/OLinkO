@@ -127,6 +127,13 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
         connectToServer();
     }
 
+    public static String[] possibleCases = {
+            "סלקום טי וי", "test1",
+            "volvo 40",
+            "Knight Frank",
+            "Black Crown",
+            "耐克","testcn",
+    };
     @SuppressWarnings("ALL")
     private void connectToServer() {
         final String message = getArguments().getString("initialMessage");
@@ -172,7 +179,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
             mRunnableQueue.add(new Runnable() {
                 @Override
                 public void run() {
-                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, BitmapFactory.decodeResource(getResources(), R.drawable.sample) );
+                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, BitmapFactory.decodeResource(getResources(), R.drawable.cellcom_ads) );
                     mMessageInput.post(new Runnable() {
                         @Override
                         public void run() {
@@ -181,8 +188,8 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                     });
                 }
             });
-            RealmHelper.addOrCreateChatList("cellcom","Cellcom","Cellcom TV promotion",new Date(),3);
-        }else if("volvo 40".equals(message)){
+            RealmHelper.addOrCreateChatList("cellcom", R.drawable.cellcom,message,"Cellcom","Cellcom TV promotion",new Date(),3);
+        }else if("volvo 40".equalsIgnoreCase(message)){
             mRunnableQueue.add(new Runnable() {
                 @Override
                 public void run() {
@@ -198,7 +205,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
             mRunnableQueue.add(new Runnable() {
                 @Override
                 public void run() {
-                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, BitmapFactory.decodeResource(getResources(), R.drawable.sample) );
+                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, BitmapFactory.decodeResource(getResources(), R.drawable.volvo_ads) );
                     final ChatMessage newMessage2 = new ChatMessage(MessageType.USER, "http://www.volvocars.com/intl/cars/new-models/v40");
                     mMessageInput.post(new Runnable() {
                         @Override
@@ -209,8 +216,8 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                     });
                 }
             });
-            RealmHelper.addOrCreateChatList("volvo","Volvo","Volvo group",new Date(),1);
-        }else if("Knight Frank".equals(message)){
+            RealmHelper.addOrCreateChatList("volvo", R.drawable.volvo_ads,message,"Volvo","Volvo group",new Date(),1);
+        }else if("Knight Frank".equalsIgnoreCase(message)){
             mRunnableQueue.add(new Runnable() {
                 @Override
                 public void run() {
@@ -226,7 +233,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
             mRunnableQueue.add(new Runnable() {
                 @Override
                 public void run() {
-                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, BitmapFactory.decodeResource(getResources(), R.drawable.sample) );
+                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, BitmapFactory.decodeResource(getResources(), R.drawable.frank_ads) );
                     final ChatMessage newMessage2 = new ChatMessage(MessageType.USER, "http://search.knightfrank.com/3003493");
                     mMessageInput.post(new Runnable() {
                         @Override
@@ -237,8 +244,8 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                     });
                 }
             });
-            RealmHelper.addOrCreateChatList("kf","Knight Frank","Property #3003494",new Date(),0);
-        }else if("Black Crown".equals(message)){
+            RealmHelper.addOrCreateChatList("kf", R.drawable.knightfrank,message,"Knight Frank","Property #3003494",new Date(),0);
+        }else if("Black Crown".equalsIgnoreCase(message)){
             mRunnableQueue.add(new Runnable() {
                 @Override
                 public void run() {
@@ -266,7 +273,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
             mRunnableQueue.add(new Runnable() {
                 @Override
                 public void run() {
-                    final ChatMessage newMessage = new ChatMessage(MessageType.OWNER, BitmapFactory.decodeResource(getResources(), R.drawable.sample));
+                    final ChatMessage newMessage = new ChatMessage(MessageType.OWNER, BitmapFactory.decodeResource(getResources(), R.drawable.blackcrown_ads));
                     mMessageInput.post(new Runnable() {
                         @Override
                         public void run() {
@@ -288,7 +295,35 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                     });
                 }
             });
-            RealmHelper.addOrCreateChatList("kf","Knight Frank","Property #3003494",new Date(),0);
+            RealmHelper.addOrCreateChatList("bc", R.drawable.blackcrown,message,"Black Crown","#tastles",new Date(),0);
+        }else if("耐克".equalsIgnoreCase(message) || "testcn".equals(message)){
+            mRunnableQueue.add(new Runnable() {
+                @Override
+                public void run() {
+                    final ChatMessage newMessage = new ChatMessage(MessageType.OWNER, "耐克" );
+                    mMessageInput.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addItem(newMessage);
+                        }
+                    });
+                }
+            });
+            mRunnableQueue.add(new Runnable() {
+                @Override
+                public void run() {
+                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, BitmapFactory.decodeResource(getResources(), R.drawable.nike_ads) );
+                    final ChatMessage newMessage2 = new ChatMessage(MessageType.USER, "http://www.nike.com/cn/zh_cn/c/nikeid");
+                    mMessageInput.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.addItem(newMessage);
+                            mAdapter.addItem(newMessage2);
+                        }
+                    });
+                }
+            });
+            RealmHelper.addOrCreateChatList("nikecn",R.drawable.logo,message,"Nike","Nike",new Date(),1);
         }
         delayedRunProcess();
     }
