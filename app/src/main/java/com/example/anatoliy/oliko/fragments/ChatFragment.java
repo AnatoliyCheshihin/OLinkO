@@ -131,7 +131,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
             "סלקום טי וי", "test1",
             "volvo 40",
             "Knight Frank",
-            "Black Crown",
+            "Black Crown","\uD83D\uDE0A","+tasteit",
             "耐克","testcn",
             "coles app"
     };
@@ -217,7 +217,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                     });
                 }
             });
-            RealmHelper.addOrCreateChatList("volvo", R.drawable.volvo_ads,message,"Volvo","Volvo group",new Date(),1);
+            RealmHelper.addOrCreateChatList("volvo", R.drawable.volvo,message,"Volvo","Volvo group",new Date(),1);
         }else if("Knight Frank".equalsIgnoreCase(message)){
             mRunnableQueue.add(new Runnable() {
                 @Override
@@ -246,7 +246,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                 }
             });
             RealmHelper.addOrCreateChatList("kf", R.drawable.knightfrank,message,"Knight Frank","Property #3003494",new Date(),0);
-        }else if("Black Crown".equalsIgnoreCase(message)){
+        }else if("Black Crown".equalsIgnoreCase(message) || "\uD83D\uDE0A".equals(message) || "+tasteit".equalsIgnoreCase(message)){
             mRunnableQueue.add(new Runnable() {
                 @Override
                 public void run() {

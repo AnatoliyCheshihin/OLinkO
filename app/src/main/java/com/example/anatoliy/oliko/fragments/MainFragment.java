@@ -27,6 +27,7 @@ import com.example.anatoliy.oliko.models.ChatList;
 import com.example.anatoliy.oliko.models.Link;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import io.realm.Realm;
@@ -84,8 +85,12 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         // Start autocomplete search after typed by user x chars
         mAutoCompleteInput.setThreshold(AUTO_COMPLETE_CHAR_THRESHOLD);
         List<String> pointerKeySet = RealmHelper.getKeySet();
+        LinkedList<String> possibleCases = new LinkedList<>();
+        possibleCases.addAll(pointerKeySet);
+        for(String s : ChatFragment.possibleCases)
+            possibleCases.add(s);
         ArrayAdapter<String> autoCompleteAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.select_dialog_item, pointerKeySet);
+                android.R.layout.select_dialog_item, possibleCases);
         mAutoCompleteInput.setAdapter(autoCompleteAdapter);
         mAutoCompleteInput.addTextChangedListener(new TextWatcher() {
 
@@ -169,19 +174,25 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     // TODO: delete this after implementation of chat activity instead of normal flow that was used previously
     private boolean testChatActivity(){
 
-        boolean isValidKey = false;
-
         String word = mAutoCompleteInput.getText().toString();
+
+        String firstMatch = null;
+        int match_len = 0;
 
         for(String caseWord : ChatFragment.possibleCases){
             if(caseWord.equalsIgnoreCase(word)){
-                isValidKey=true;
+                firstMatch = word;
                 break;
+            }
+            while(caseWord.length() > match_len && word.length() > match_len
+                    && caseWord.substring(0, match_len+1).equalsIgnoreCase(word.substring(0, match_len+1))){
+                match_len += 1;
+                firstMatch = caseWord;
             }
         }
 
-        if(isValidKey) {
-            mListener.onChatActivityStartRequest(word);
+        if(firstMatch!=null) {
+            mListener.onChatActivityStartRequest(firstMatch);
         }
 
         return true;
