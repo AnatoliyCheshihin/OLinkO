@@ -3,28 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/chat_message_item_margin"
+        android:orientation="vertical"
         android:background="@drawable/bubble_yellow">
 
-        <ImageView
-            android:id="@+id/ivChatUserPostImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:contentDescription="@null"
-            android:visibility="gone" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/ivChatUserPostImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:src="@drawable/adv1"
+                android:visibility="visible" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tvChatUserPostMessage"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autoLink="web|email"
             android:linksClickable="true"
+            android:textColorLink="@color/black"
             android:padding="@dimen/chat_message_item_text_padding"
-            android:text="" />
+            android:text="aaa" />
 
-    </FrameLayout>
+    </LinearLayout>
 </LinearLayout>

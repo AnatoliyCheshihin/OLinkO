@@ -206,13 +206,13 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
             mRunnableQueue.add(new Runnable() {
                 @Override
                 public void run() {
-                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, BitmapFactory.decodeResource(getResources(), R.drawable.volvo_ads) );
-                    final ChatMessage newMessage2 = new ChatMessage(MessageType.USER, "http://www.volvocars.com/intl/cars/new-models/v40");
+                    final ChatMessage newMessage = new ChatMessage(MessageType.USER,
+                            BitmapFactory.decodeResource(getResources(), R.drawable.volvo_ads),
+                            "http://www.volvocars.com/intl/cars/new-models/v40");
                     mMessageInput.post(new Runnable() {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
-                            mAdapter.addItem(newMessage2);
                         }
                     });
                 }
@@ -234,13 +234,13 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
             mRunnableQueue.add(new Runnable() {
                 @Override
                 public void run() {
-                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, BitmapFactory.decodeResource(getResources(), R.drawable.frank_ads) );
-                    final ChatMessage newMessage2 = new ChatMessage(MessageType.USER, "http://search.knightfrank.com/3003493");
+                    final ChatMessage newMessage = new ChatMessage(MessageType.USER,
+                            BitmapFactory.decodeResource(getResources(), R.drawable.frank_ads),
+                            "http://search.knightfrank.com/3003493");
                     mMessageInput.post(new Runnable() {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
-                            mAdapter.addItem(newMessage2);
                         }
                     });
                 }
@@ -313,13 +313,13 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
             mRunnableQueue.add(new Runnable() {
                 @Override
                 public void run() {
-                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, BitmapFactory.decodeResource(getResources(), R.drawable.nike_ads) );
-                    final ChatMessage newMessage2 = new ChatMessage(MessageType.USER, "http://www.nike.com/cn/zh_cn/c/nikeid");
+                    final ChatMessage newMessage = new ChatMessage(MessageType.USER,
+                            BitmapFactory.decodeResource(getResources(), R.drawable.nike_ads),
+                            "http://www.nike.com/cn/zh_cn/c/nikeid");
                     mMessageInput.post(new Runnable() {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
-                            mAdapter.addItem(newMessage2);
                         }
                     });
                 }
@@ -341,13 +341,13 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
             mRunnableQueue.add(new Runnable() {
                 @Override
                 public void run() {
-                    final ChatMessage newMessage = new ChatMessage(MessageType.USER, BitmapFactory.decodeResource(getResources(), R.drawable.coles_ads) );
-                    final ChatMessage newMessage2 = new ChatMessage(MessageType.USER, "https://play.google.com/store/apps/details?id=com.coles.android.shopmate&hl=en");
+                    final ChatMessage newMessage = new ChatMessage(MessageType.USER,
+                            BitmapFactory.decodeResource(getResources(), R.drawable.coles_ads),
+                            "https://play.google.com/store/apps/details?id=com.coles.android.shopmate&hl=en");
                     mMessageInput.post(new Runnable() {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
-                            mAdapter.addItem(newMessage2);
                         }
                     });
                 }

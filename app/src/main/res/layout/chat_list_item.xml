@@ -75,8 +75,7 @@
             android:singleLine="true"
             android:maxLines="1"
             android:ellipsize="end"
-            android:textColor="@android:color/white"
-            android:background="@drawable/badge"
+            android:textColor="@color/badge_color"
             android:textSize="@dimen/chat_list_item_badge_text_size"
             android:text="3"/>
 

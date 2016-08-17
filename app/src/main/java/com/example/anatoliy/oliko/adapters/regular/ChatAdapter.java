@@ -58,26 +58,23 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         ChatMessage item = getListItem(position);
 
-        if (item.getBitmap() == null) {
-            if (holder instanceof MessageViewHolder) {
-                ((MessageViewHolder) holder).mMessage.setVisibility(View.VISIBLE);
-                if(((MessageViewHolder) holder).mImage != null) {
+        if (holder instanceof MessageViewHolder) {
+            if(((MessageViewHolder) holder).mImage != null) {
+                if (item.getBitmap() == null) {
                     ((MessageViewHolder) holder).mImage.setVisibility(View.GONE);
-                }
-                ((MessageViewHolder) holder).mMessage.setText(item.getMessage());
-            } else {
-                throw new IllegalArgumentException("Unknown holder view type");
-            }
-        }else{
-            if (holder instanceof MessageViewHolder) {
-                ((MessageViewHolder) holder).mMessage.setVisibility(View.GONE);
-                if(((MessageViewHolder) holder).mImage != null) {
+                }else{
                     ((MessageViewHolder) holder).mImage.setVisibility(View.VISIBLE);
+                    ((MessageViewHolder) holder).mImage.setImageBitmap(item.getBitmap());
                 }
-                ((MessageViewHolder) holder).mImage.setImageBitmap(item.getBitmap());
-            } else {
-                throw new IllegalArgumentException("Unknown holder view type");
             }
+            if(item.getMessage() == null || item.getMessage().length()==0){
+                ((MessageViewHolder) holder).mMessage.setVisibility(View.GONE);
+            }else {
+                ((MessageViewHolder) holder).mMessage.setVisibility(View.VISIBLE);
+                ((MessageViewHolder) holder).mMessage.setText(item.getMessage());
+            }
+        } else {
+            throw new IllegalArgumentException("Unknown holder view type");
         }
     }
 

@@ -28,6 +28,13 @@ public class ChatMessage {
         mMessage = null;
     }
 
+    public ChatMessage(MessageType messageType, Bitmap bitmap, String message){
+
+        mBitmap = bitmap;
+        mMessageType = messageType;
+        mMessage = message;
+    }
+
     public MessageType getMessageType() {
         return mMessageType;
     }
