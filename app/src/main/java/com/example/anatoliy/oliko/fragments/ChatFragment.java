@@ -147,6 +147,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
+                            scrollToBottom();
                         }
                     });
                 }
@@ -159,6 +160,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
+                            scrollToBottom();
                         }
                     });
                 }
@@ -173,6 +175,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
+                            scrollToBottom();
                         }
                     });
                 }
@@ -185,6 +188,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
+                            scrollToBottom();
                         }
                     });
                 }
@@ -199,6 +203,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
+                            scrollToBottom();
                         }
                     });
                 }
@@ -213,6 +218,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
+                            scrollToBottom();
                         }
                     });
                 }
@@ -227,6 +233,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
+                            scrollToBottom();
                         }
                     });
                 }
@@ -241,6 +248,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
+                            scrollToBottom();
                         }
                     });
                 }
@@ -255,6 +263,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
+                            scrollToBottom();
                         }
                     });
                 }
@@ -267,6 +276,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
+                            scrollToBottom();
                         }
                     });
                 }
@@ -279,6 +289,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
+                            scrollToBottom();
                         }
                     });
                 }
@@ -292,6 +303,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
+                            scrollToBottom();
                         }
                     });
                 }
@@ -306,6 +318,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
+                            scrollToBottom();
                         }
                     });
                 }
@@ -320,6 +333,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
+                            scrollToBottom();
                         }
                     });
                 }
@@ -334,6 +348,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
+                            scrollToBottom();
                         }
                     });
                 }
@@ -348,6 +363,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
                         @Override
                         public void run() {
                             mAdapter.addItem(newMessage);
+                            scrollToBottom();
                         }
                     });
                 }
@@ -355,6 +371,10 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
             RealmHelper.addOrCreateChatList("cole",R.drawable.coles,message,"Coles App","#coleapp",new Date(),0);
         }
         delayedRunProcess();
+    }
+
+    private void scrollToBottom() {
+        mRecyclerView.scrollToPosition(mAdapter.getItemCount()-1);
     }
 
     private void handlePostImageClick(){
@@ -369,6 +389,7 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
         if (!message.isEmpty()){
             final ChatMessage ownerMessage = new ChatMessage(MessageType.OWNER, message);
             mAdapter.addItem(ownerMessage);
+            scrollToBottom();
             clearInput();
         }
     }

@@ -59,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_margin="5sp"
+            android:layout_marginBottom="0dp"
             android:singleLine="true"
             android:maxLines="1"
             android:ellipsize="end"
@@ -75,7 +76,8 @@
             android:singleLine="true"
             android:maxLines="1"
             android:ellipsize="end"
-            android:textColor="@color/badge_color"
+            android:background="@drawable/badge"
+            android:textColor="@color/white"
             android:textSize="@dimen/chat_list_item_badge_text_size"
             android:text="3"/>
 
